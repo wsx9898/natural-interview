@@ -28,59 +28,65 @@
 
 <table>
     <h1 id="testJQ"></h1>
-    <thead>
-    <tr>
-        <th>idx</th>
-        <th>Key</th>
-        <th>Value</th>
-    </tr>
-    </thead>
-    <tbody id="putHere">
-    </tbody>
+    <div id="putHere1"></div>
 </table>
-
 
 
 <script>
     var cnt = 0;
     var data;
 
-    function callBySearchButton(){
-    var settings = {
-        "url": "http://localhost:8081/boot/getAllData",
-        "method": "GET",
-        "timeout": 0,
-    };
+    function callBySearchButton() {
+        //Empty before appending
+        $('#putHere1').empty();
 
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-        data = JSON.parse(response);
+        //calling backend
+        var settings = {
+            "url": "http://localhost:8081/boot/getAllData",
+            "method": "GET",
+            "timeout": 0,
+        };
 
-        data.forEach(function (e) {
-            console.log(e.base64);
-            appendData(e.idx, e.aes256, e.base64);
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            data = JSON.parse(response);
+
+            data.forEach(function (e) {
+                console.log(e.base64);
+                appendData(e.idx, e.aes256, e.base64);
+            });
         });
-    });
+        //calling backend
+
+        $("#putHere1").append(
+            `
+            <thead>
+                <tr>
+                    <th>idx</th>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody id="putHere2">
+            </tbody>
+        `)
     }
-
-
 
     function appendData(idx, aes256, base64) {
-        //Reload first
-        window.location.reload();
-
         //Append things
-        $("#putHere").append(
-            `<tr id="item${cnt}" >
-                <td>${idx}</td>
-                <td>${base64.key}</td>
-                <td>${base64.value}</td>
-            </tr>`)
+        $("#putHere2").append(
+            `
+                <tr id="item${cnt}" >
+                    <td>${idx}</td>
+                    <td>${base64.key}</td>
+                    <td>${base64.value}</td>
+                </tr>
+        `)
     }
 
 
-    function appendInsertForm(){
-        $('#putHere').append(`
+    function appendInsertForm() {
+        $('#putHere1').append(`
                 <form th:action="@{/insertData}" method="get">
                     <table>
                         <tr>
@@ -91,11 +97,10 @@
                             <td>value : </td>
                             <td><input type="text" name="value" value=""></td>
                         </tr>
-                        <tr>
-                            <td align="left"><input type="submit" value="cancel"></td>
-                            <td align="right"><input type="submit" value="ok"></td>
-                        </tr>
                     </table>
+
+                    <td align="left"><input type="submit" value="cancel"></td>
+                    <td align="right"><input type="submit" value="ok"></td>
                 </form>`)
     }
 
