@@ -43,7 +43,7 @@ public class Table1Controller {
         }
     }
 
-    @GetMapping(path = {"/insertData"})
+    @PutMapping(path = {"/insertData"})
     public ResponseEntity insertData(@RequestBody String body) {
         System.out.println("Controller insertData()有被呼叫到");
 
