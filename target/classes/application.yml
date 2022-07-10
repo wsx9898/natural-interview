@@ -1,13 +1,16 @@
 spring:
   datasource:
     # DataSource
-    url: jdbc:mysql://localhost:8889/java?serverTimezone=Asia/Taipei
-    username: root
-    password: root
+    url: jdbc:mysql://59.124.223.227:6666/M19?serverTimezone=Asia/Taipei
+    username: M19
+    password: Mm976723!
   jpa:
     # SessionFactory
     hibernate:
       ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect

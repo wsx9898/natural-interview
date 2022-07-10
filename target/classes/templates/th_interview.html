@@ -11,25 +11,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- CSS Style -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/font-face-css.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.css}">
+
     <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mobile-menu.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/revslider.css}">
-    <!-- Google Fonts -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
     <!-- Kevin CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/kevin.css}">
+    <!-- jquery -->
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
 </head>
 <body>
-        <button class="button" onclick="callBySearchButton()">查詢資料</button>
-        <button class="button" onclick="appendInsertForm()">新增資料</button>
+        <button class="btn-primary rounded btn-lg" onclick="callBySearchButton()">查詢資料</button>
+        <button class="btn-primary rounded btn-lg" onclick="appendInsertForm()">新增資料</button>
 
         <table>
-            <h1 id="testJQ"></h1>
             <div id="putHere1"></div>
         </table>
+
 
 
 
@@ -39,7 +36,7 @@
 
     function callBySearchButton() {
         //Empty before appending
-        $('#putHere1').empty();
+        emptyAll()
 
         //calling backend
         var settings = {
@@ -59,8 +56,7 @@
         });
         //calling backend
 
-        $("#putHere1").append(
-            `
+        $("#putHere1").append(`
             <thead>
                 <tr>
                     <th>idx</th>
@@ -87,24 +83,41 @@
 
     function appendInsertForm() {
         //Empty before appending
-        $('#putHere1').empty();
+        emptyAll();
 
         $('#putHere1').append(`
-                <div>
-                    <div>
-                        <label for="key">key:</label>
-                        <input id="key" type="text" name="key" value="">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">insert Data</h5>
+                        <button type="button" class="close" aria-label="Close" onclick="emptyAll()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div>
-                        <label for="value">value:</label>
-                        <input id="value" type="text" name="value" value="">
+                    <div class="modal-body">
+                        <div>
+                            <div class="position-relative top-20 start-0">
+                                <label for="key">Key</label>
+                            </div>
+                            <div class="position-relative top-20 end-0">
+                                <input class="position-relative end-20" id="key" type="text" name="key" value="">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="position-relative top-80 start-0>
+                                <label for="value">Value</label>
+                            </div>
+                            <div class="position-relative top-80 end-0">
+                                <input id="value" type="text" name="value" value="">
+                            </div>
+                        </div>
                     </div>
-                    <div>
+                    <div class="modal-footer">
                         <button class="button" onclick="clearInput()">Cancel</button>
                         <button class="button" onclick="sendInputData()">OK</button>
                     </div>
                 </div>
-
+            </div>
                 `)
     }
 
@@ -141,6 +154,10 @@
 
     function clearInput(){
         $('input[type=text]').val('');
+    }
+
+    function emptyAll(){
+        $('#putHere1').empty();
     }
 
 </script>
