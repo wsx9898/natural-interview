@@ -49,10 +49,12 @@ public class Table1DAOHibernate implements Table1DAO {
 
     @Override
     public Table1Bean insert(Table1Bean bean) {
-        if (bean != null && bean.getIdx() != null) {
+        if (bean != null ) {
+            System.out.println("if (bean != null )");
             Table1Bean temp = this.getSession().get(Table1Bean.class, bean.getIdx());
-            //防呆
-            if (temp != null) {
+            //如果id有東西就不要在這裡新增覆蓋
+            if (temp == null) {
+                System.out.println("這個id目前是空值");
                 if (bean.getIdx() == null) {
                     bean.setIdx(0);
                 }
@@ -64,6 +66,9 @@ public class Table1DAOHibernate implements Table1DAO {
                 }
                 this.getSession().save(bean);
                 return bean;
+            }else{
+                System.out.println("此id已經有值");
+                return null;
             }
         }
         return null;

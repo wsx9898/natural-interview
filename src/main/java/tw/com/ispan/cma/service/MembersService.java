@@ -53,7 +53,6 @@ public class MembersService {
 		System.out.println("MembersService有被呼叫到");
 		MembersBean result = null;
 		if(bean!=null) {
-
 			System.out.println(bean.getMemberId() + " from Members service");
 			result = membersDao.insert(bean);
 		}	

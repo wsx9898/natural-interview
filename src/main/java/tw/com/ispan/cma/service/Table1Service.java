@@ -22,31 +22,38 @@ public class Table1Service {
 
     public List<Table1Bean> select(Table1Bean bean){
         List<Table1Bean> result = null;
-        List<Table1Bean> returnResult = null;
+        List<Table1Bean> returnResult = new ArrayList<Table1Bean>();
 
         //!!!!如果只拿特定的還是會改到資料庫
         //這邊是指定拿到特定的一個bean
         if(bean!=null && bean.getIdx()!=null && !bean.getIdx().equals(0)){
-            Table1Bean temp = table1DAO.select(bean.getIdx());
-            if(temp!=null){
-                returnResult = new ArrayList<Table1Bean>();
-
+            Table1Bean specificBean = table1DAO.select(bean.getIdx());
+            if(specificBean!=null){
+                var temp = new Table1Bean();
+                //創立一個新的tempBean把specificBean所有值都複製過去
+                temp.setIdx(specificBean.getIdx());
+                temp.setAes256(specificBean.getAes256());
                 //把加密過的先取出來解密再放回去
-                temp.setBase64(new String(base64.decode(temp.getBase64().getBytes())));
+                temp.setBase64(new String(base64.decode(specificBean.getBase64().getBytes())));
+
                 returnResult.add(temp);
             }
         //這邊會取得所有的beans
         }else {
             result = table1DAO.select();
-
             //在這層把base64解密，再把他取代原本的
             for(Table1Bean ele:result){
-                var encryptedStr = ele.getBase64();
-                String decryptedStr = new String(base64.decode(encryptedStr.getBytes()));
-                //這邊拿到的bean依然跟資料庫連線?setBase64也會影響到資料庫裡面的bean?
-                ele.setBase64(decryptedStr);
+                String encryptedStr = ele.getBase64();
+                var decryptedStr = new String(base64.decode(encryptedStr.getBytes()));
+                //創立一個新的tempBean把ele所有值都複製過去
+                Table1Bean tempBean = new Table1Bean();
+                tempBean.setIdx(ele.getIdx());
+                tempBean.setAes256(ele.getAes256());
+                tempBean.setBase64(decryptedStr);
 
-                returnResult.add(ele);
+                System.out.println("ele = " + ele);
+                System.out.println("tempBean = " + tempBean);
+                returnResult.add(tempBean);
             }
         }
         return returnResult;
@@ -55,7 +62,21 @@ public class Table1Service {
     public Table1Bean insert(Table1Bean bean){
         Table1Bean result = null;
         if(bean!=null){
-            System.out.println(bean.getIdx() + " from Table1 service");
+            //這邊設定為0
+            if(bean.getIdx()==null) {
+                bean.setIdx(0);
+            }
+            //encoding here
+            if(bean.getBase64()!=null){
+                var rawData = bean.getBase64();
+                System.out.println("rawData = "+ rawData);
+                String encodedData = new String(base64.encodeBase64(rawData.getBytes()));
+                System.out.println("encodedData = "+ encodedData);
+                bean.setBase64(encodedData);
+            }
+
+
+            System.out.println(" from Table1 service, bean.getIdx() = " + bean.getIdx());
             result = table1DAO.insert(bean);
         }
         return result;

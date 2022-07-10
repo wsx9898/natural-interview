@@ -43,21 +43,12 @@ public class Table1Bean {
         this.base64 = base64;
     }
 
-//    @Override
-//    public String toString() {
-//        return "{" +
-//                "\"idx\" : " + '\"' + idx + '\"' +
-//                ", \"aes256\" : " + '\"' + aes256 + '\"'+
-//                ", \"base64\" : " + '\"' + base64 + '\"'+
-//                "}";
-//    }
-
-        @Override
+    @Override
     public String toString() {
         return "{" +
                 "\"idx\" : " + '\"' + idx + '\"' +
                 ", \"aes256\" : " + '\"' + aes256 + '\"'+
-                ", \"base64\" : " + '\"' + base64 + '\"'+
+                ", \"base64\" : " +  base64 +
                 "}";
     }
 }
