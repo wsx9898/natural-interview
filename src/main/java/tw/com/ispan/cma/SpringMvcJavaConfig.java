@@ -57,7 +57,7 @@ public class SpringMvcJavaConfig implements WebMvcConfigurer {
 
 	@Bean
 	public ViewResolver jspViewResolver() {
-		System.out.println("有成功呼叫到jspViewResolver");
+//		System.out.println("有成功呼叫到jspViewResolver");
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 
 		viewResolver.setViewClass(JstlView.class);
@@ -68,7 +68,7 @@ public class SpringMvcJavaConfig implements WebMvcConfigurer {
 		// Make sure > Thymeleaf order & FreeMarker order.
 		viewResolver.setOrder(1000);
 
-		System.out.println("viewResolver = " + viewResolver);
+//		System.out.println("viewResolver = " + viewResolver);
 
 		return viewResolver;
 	}
@@ -77,7 +77,6 @@ public class SpringMvcJavaConfig implements WebMvcConfigurer {
 
 
 //這長串是thymeleafViewResolver
-
 	@Bean
 	public ViewResolver thymeleafViewResolver() {
 
@@ -89,7 +88,7 @@ public class SpringMvcJavaConfig implements WebMvcConfigurer {
 
 		// Important!!
 		// th_page1.html, th_page2.html, ...
-		viewResolver.setViewNames(new String[] {"th_*","KevinNewCart","KevinProductInfo","registerForm","KevinDashBoard","loginTony","loginKevin"});
+		viewResolver.setViewNames(new String[] {"th_*"});
 
 		return viewResolver;
 	}
