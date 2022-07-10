@@ -51,8 +51,8 @@ public class Table1Service {
                 tempBean.setAes256(ele.getAes256());
                 tempBean.setBase64(decryptedStr);
 
-                System.out.println("ele = " + ele);
-                System.out.println("tempBean = " + tempBean);
+//                System.out.println("ele = " + ele);
+//                System.out.println("tempBean = " + tempBean);
                 returnResult.add(tempBean);
             }
         }
@@ -71,10 +71,10 @@ public class Table1Service {
                 var rawData = bean.getBase64();
                 System.out.println("rawData = "+ rawData);
                 String encodedData = new String(base64.encodeBase64(rawData.getBytes()));
-                System.out.println("encodedData = "+ encodedData);
+//                System.out.println("encodedData = "+ encodedData);
                 bean.setBase64(encodedData);
-            }
 
+            }
 
             System.out.println(" from Table1 service, bean.getIdx() = " + bean.getIdx());
             result = table1DAO.insert(bean);

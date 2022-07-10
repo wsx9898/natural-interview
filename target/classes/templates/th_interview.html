@@ -23,8 +23,8 @@
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
 </head>
 <body>
-<button>查詢資料</button>
-<button>新增資料</button>
+<button class="button" onclick="callBySearchButton()">查詢資料</button>
+<button class="button" onclick="appendInsertForm()">新增資料</button>
 
 <table>
     <h1 id="testJQ"></h1>
@@ -40,25 +40,12 @@
 </table>
 
 
-<form th:action="@{/kevinLogin}" method="get">
-    <table>
-        <tr>
-            <td>ID : </td>
-            <td><input type="text" name="key" value=""></td>
-        </tr>
-        <tr>
-            <td>PWD : </td>
-            <td><input type="text" name="value" value=""></td>
-        </tr>
-        <tr>
-            <td align="right"><input type="submit" value="Login"></td>
-        </tr>
-    </table>
-</form>
+
 <script>
     var cnt = 0;
     var data;
-    // //JQ一開始就要資訊
+
+    function callBySearchButton(){
     var settings = {
         "url": "http://localhost:8081/boot/getAllData",
         "method": "GET",
@@ -74,11 +61,15 @@
             appendData(e.idx, e.aes256, e.base64);
         });
     });
+    }
 
-    // //JQ一開始就要資訊
 
 
     function appendData(idx, aes256, base64) {
+        //Reload first
+        window.location.reload();
+
+        //Append things
         $("#putHere").append(
             `<tr id="item${cnt}" >
                 <td>${idx}</td>
@@ -86,6 +77,28 @@
                 <td>${base64.value}</td>
             </tr>`)
     }
+
+
+    function appendInsertForm(){
+        $('#putHere').append(`
+                <form th:action="@{/insertData}" method="get">
+                    <table>
+                        <tr>
+                            <td>key : </td>
+                            <td><input type="text" name="key" value=""></td>
+                        </tr>
+                        <tr>
+                            <td>value : </td>
+                            <td><input type="text" name="value" value=""></td>
+                        </tr>
+                        <tr>
+                            <td align="left"><input type="submit" value="cancel"></td>
+                            <td align="right"><input type="submit" value="ok"></td>
+                        </tr>
+                    </table>
+                </form>`)
+    }
+
 </script>
 </body>
 </html>

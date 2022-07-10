@@ -51,31 +51,25 @@ public class Table1Controller {
         String key = "";
         String value = "";
 
-        System.out.println("body = "+body);
-
         try {
             JSONObject jsonObject = new JSONObject(body);
             key = jsonObject.getString("key");
-            System.out.println("key = " + key);
+//            System.out.println("key = " + key);
             value = jsonObject.getString("value");
-            System.out.println("value = " + value);
+//            System.out.println("value = " + value);
         } catch (Exception e) {
             System.out.println("Key,Value轉換錯了，錯誤碼為：" + e);
         }
 
-        System.out.println("body.toString() = "+body.toString());
+//        System.out.println("body.toString() = "+body.toString());
+        bean.setBase64(body.toString());
 
-
-
-
-
-//        var result = table1Service.insert(bean);
-//        if (result != null) {
-//            return ResponseEntity.ok(result.toString());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-        return null;
+        var result = table1Service.insert(bean);
+        if (result != null) {
+            return ResponseEntity.ok(result.toString());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

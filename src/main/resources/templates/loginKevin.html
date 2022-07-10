@@ -38,18 +38,18 @@
 
 <h1>LoginKevin.html</h1>
 
-<form th:action="@{/insertData}" method="get">
+<form th:action="@{/kevinLogin}" method="get">
 <table>
 	<tr>
-		<td>Key : </td>
-		<td><input type="text" name="Key" value=""></td>
+		<td>ID : </td>
+		<td><input type="text" name="username" value=""></td>
 	</tr>
 	<tr>
-		<td>Value : </td>
-		<td><input type="text" name="Value" value=""></td>
+		<td>PWD : </td>
+		<td><input type="text" name="password" value=""></td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="Login"></td>
+		<td align="right"><input type="submit" value="Login"></td>
 	</tr>
 </table>
 </form>

@@ -32,7 +32,7 @@ public class Table1DAOHibernate implements Table1DAO {
 
     @Override
     public List<Table1Bean> select() {
-        System.out.println("Hibernate select()有被呼叫到");
+//        System.out.println("Hibernate select()有被呼叫到");
 
         CriteriaBuilder criteriaBuilder = this.getSession().getCriteriaBuilder();
         CriteriaQuery<Table1Bean> criteriaQuery = criteriaBuilder.createQuery(Table1Bean.class);
