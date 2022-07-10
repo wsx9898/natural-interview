@@ -140,7 +140,9 @@
     }
 
     function clearInput(){
-        $('input[type=text]').val('');
+        $('input[type=text]').focus(function (){
+            $(this).val('');
+        });
     }
 
 </script>
